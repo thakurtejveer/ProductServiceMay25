@@ -1,6 +1,7 @@
 package com.scaler.productservicemay25.services;
 
 import com.scaler.productservicemay25.dtos.FakeStoreProductDto;
+import com.scaler.productservicemay25.exceptions.ProductNotFoundException;
 import com.scaler.productservicemay25.models.Category;
 import com.scaler.productservicemay25.models.Product;
 import org.springframework.http.ResponseEntity;
@@ -23,12 +24,16 @@ public class FakeStoreProductService implements ProductService {
     }
 
     @Override
-    public Product getSingleProduct(Long productId) {
-        ResponseEntity<FakeStoreProductDto> fakeStoreProductDtoResponseEntity = restTemplate.getForEntity("https://fakestoreapi.com/products/" + productId, FakeStoreProductDto.class);
-        FakeStoreProductDto fakeStoreProductDto = fakeStoreProductDtoResponseEntity.getBody();
-
-        // convert FakeStoreProductDto to Product
-        return convertFakeStoreProductDtoToProduct(fakeStoreProductDto);
+    public Product getSingleProduct(Long productId) throws ProductNotFoundException {
+        throw new RuntimeException("Something wrong happened in service method");
+//        ResponseEntity<FakeStoreProductDto> fakeStoreProductDtoResponseEntity = restTemplate.getForEntity("https://fakestoreapi.com/products/" + productId, FakeStoreProductDto.class);
+//        FakeStoreProductDto fakeStoreProductDto = fakeStoreProductDtoResponseEntity.getBody();
+//
+//        // convert FakeStoreProductDto to Product
+//        if(fakeStoreProductDto == null){
+//            throw new ProductNotFoundException("Product with given id : " + productId + " is not found", productId);
+//        }
+//        return convertFakeStoreProductDtoToProduct(fakeStoreProductDto);
     }
 
     @Override
