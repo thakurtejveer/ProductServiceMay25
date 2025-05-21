@@ -25,15 +25,15 @@ public class FakeStoreProductService implements ProductService {
 
     @Override
     public Product getSingleProduct(Long productId) throws ProductNotFoundException {
-        throw new RuntimeException("Something wrong happened in service method");
-//        ResponseEntity<FakeStoreProductDto> fakeStoreProductDtoResponseEntity = restTemplate.getForEntity("https://fakestoreapi.com/products/" + productId, FakeStoreProductDto.class);
-//        FakeStoreProductDto fakeStoreProductDto = fakeStoreProductDtoResponseEntity.getBody();
-//
-//        // convert FakeStoreProductDto to Product
-//        if(fakeStoreProductDto == null){
-//            throw new ProductNotFoundException("Product with given id : " + productId + " is not found", productId);
-//        }
-//        return convertFakeStoreProductDtoToProduct(fakeStoreProductDto);
+//        throw new RuntimeException("Something wrong happened in service method");
+        ResponseEntity<FakeStoreProductDto> fakeStoreProductDtoResponseEntity = restTemplate.getForEntity("https://fakestoreapi.com/products/" + productId, FakeStoreProductDto.class);
+        FakeStoreProductDto fakeStoreProductDto = fakeStoreProductDtoResponseEntity.getBody();
+
+        // convert FakeStoreProductDto to Product
+        if(fakeStoreProductDto == null){
+            throw new ProductNotFoundException("Product with given id : " + productId + " is not found", productId);
+        }
+        return convertFakeStoreProductDtoToProduct(fakeStoreProductDto);
     }
 
     @Override
@@ -49,7 +49,12 @@ public class FakeStoreProductService implements ProductService {
 
     @Override
     public Product createProduct(Product product) {
-        return null;
+        FakeStoreProductDto fakeStoreProductDto = convertProductToFakeStoreProductDto(product);
+        ResponseEntity<FakeStoreProductDto> productResponseEntity = restTemplate.postForEntity("https://fakestoreapi.com/products", fakeStoreProductDto, FakeStoreProductDto.class);
+        if(!productResponseEntity.getStatusCode().is2xxSuccessful() || productResponseEntity.getBody() == null) {
+            throw new RuntimeException("Something wrong happened while creating a new product");
+        }
+        return convertFakeStoreProductDtoToProduct(productResponseEntity.getBody());
     }
 
     @Override
@@ -72,5 +77,19 @@ public class FakeStoreProductService implements ProductService {
         category.setTitle(fakeStoreProductDto.getCategory());
         product.setCategory(category);
         return product;
+    }
+
+    private static FakeStoreProductDto convertProductToFakeStoreProductDto(Product product) {
+        if(product == null) {
+            return null;
+        }
+        FakeStoreProductDto fakeStoreProductDto = new FakeStoreProductDto();
+        fakeStoreProductDto.setId(product.getId());
+        fakeStoreProductDto.setTitle(product.getTitle());
+        fakeStoreProductDto.setPrice(product.getPrice());
+        fakeStoreProductDto.setDescription(product.getDescription());
+        fakeStoreProductDto.setImage(product.getImageUrl());
+        fakeStoreProductDto.setCategory(product.getCategory().getTitle());
+        return fakeStoreProductDto;
     }
 }

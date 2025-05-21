@@ -51,8 +51,8 @@ public class ProductController {
 
     //localhost:8080/products/
     @PostMapping()
-    public Product createProduct(@RequestBody Product product) {
-        return new Product();
+    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+         return new ResponseEntity<>(productService.createProduct(product), HttpStatus.CREATED);
     }
 
     //localhost:8080/products/1
