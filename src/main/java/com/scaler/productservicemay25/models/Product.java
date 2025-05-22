@@ -1,12 +1,15 @@
 package com.scaler.productservicemay25.models;
 
-import lombok.Data;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 //@Data // instead of Getter and Setter, @Data can be used
+//@Table(name = "products", schema = "productservicemay25")
+@Entity(name = "products")
 public class Product extends BaseModel{
 
     // for specific parameters to make accessible to setter,
@@ -15,5 +18,6 @@ public class Product extends BaseModel{
     private Double price;
     private String description;
     private String imageUrl;
+    @ManyToOne
     private Category category;
 }
