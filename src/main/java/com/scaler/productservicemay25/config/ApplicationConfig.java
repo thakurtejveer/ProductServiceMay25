@@ -1,4 +1,4 @@
-package com.scaler.productservicemay25;
+package com.scaler.productservicemay25.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
