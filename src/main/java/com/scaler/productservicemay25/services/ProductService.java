@@ -1,5 +1,6 @@
 package com.scaler.productservicemay25.services;
 
+import com.scaler.productservicemay25.exceptions.CategoryNotFoundException;
 import com.scaler.productservicemay25.exceptions.ProductNotFoundException;
 import com.scaler.productservicemay25.models.Product;
 import com.scaler.productservicemay25.repository.ProductRepository;
@@ -12,7 +13,7 @@ public interface ProductService {
 
     public List<Product> getAllProducts();
 
-    public Product createProduct(Product product);
+    public Product createProduct(Product product) throws CategoryNotFoundException;
 
-    public boolean deleteProduct(Long id);
+    public void deleteProduct(Long id);
 }

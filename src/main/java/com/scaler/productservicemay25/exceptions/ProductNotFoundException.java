@@ -11,4 +11,8 @@ public class ProductNotFoundException extends Exception {
         super(message);
         this.productId = id;
     }
+
+    public ProductNotFoundException() {
+        super();
+    }
 }

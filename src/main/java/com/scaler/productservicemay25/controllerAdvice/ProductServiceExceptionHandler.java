@@ -1,7 +1,9 @@
 package com.scaler.productservicemay25.controllerAdvice;
 
+import com.scaler.productservicemay25.dtos.CategoryNotFoundExceptionDto;
 import com.scaler.productservicemay25.dtos.ExceptionDto;
 import com.scaler.productservicemay25.dtos.ProductNotFoundDto;
+import com.scaler.productservicemay25.exceptions.CategoryNotFoundException;
 import com.scaler.productservicemay25.exceptions.ProductNotFoundException;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,7 @@ public class ProductServiceExceptionHandler {
         ExceptionDto exceptionDto = new ExceptionDto();
         exceptionDto.setMessage("Something went wrong : thrown from Exception in exception handler : "+ e.getMessage());
         exceptionDto.setResolutionDetails("Please pay more money");
+        e.printStackTrace();
         return new ResponseEntity<>(exceptionDto, HttpStatus.UNAUTHORIZED);
     }
 
@@ -30,5 +33,13 @@ public class ProductServiceExceptionHandler {
         productNotFoundDto.setMessage("Not Found : "+ productNotFoundException.getMessage());
         productNotFoundDto.setResolution("Please pass a valid product id");
         return new ResponseEntity<>(productNotFoundDto, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(CategoryNotFoundException.class)
+    public ResponseEntity<CategoryNotFoundExceptionDto> handleCategoryNotFoundException(CategoryNotFoundException categoryNotFoundException){
+        CategoryNotFoundExceptionDto categoryNotFoundExceptionDto = new CategoryNotFoundExceptionDto();
+        categoryNotFoundExceptionDto.setMessage(categoryNotFoundException.getMessage());
+        categoryNotFoundExceptionDto.setResolution(categoryNotFoundException.getResolution());
+        return new ResponseEntity<>(categoryNotFoundExceptionDto, HttpStatus.NOT_FOUND);
     }
 }

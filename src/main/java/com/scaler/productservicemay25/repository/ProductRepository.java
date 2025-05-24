@@ -30,4 +30,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     // select * from products t join categories c on  t.category_id = c.id where c.title = categoryTitle;
     List<Product> findAllByCategory_Title(String categoryTitle);
+
+    // save + update
+    public Product save(Product product);
+
+    public void deleteById(Long id);
 }
