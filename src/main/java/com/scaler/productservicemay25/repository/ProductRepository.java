@@ -3,6 +3,7 @@ package com.scaler.productservicemay25.repository;
 import com.scaler.productservicemay25.models.Category;
 import com.scaler.productservicemay25.models.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -35,4 +36,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     public Product save(Product product);
 
     public void deleteById(Long id);
+
+    // HQL - We can use models
+//    @Query("select p from products p where p.id = :productId")
+    // NATIVE SQL - We can use SQL queries
+    @Query(value = "select * from products p where p.id = :productId", nativeQuery = true)
+    public Product findProuctByGivenId(Long productId);
 }
