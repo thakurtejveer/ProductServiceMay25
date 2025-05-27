@@ -4,7 +4,6 @@ import com.scaler.productservicemay25.dtos.FakeStoreProductDto;
 import com.scaler.productservicemay25.exceptions.ProductNotFoundException;
 import com.scaler.productservicemay25.models.Category;
 import com.scaler.productservicemay25.models.Product;
-import org.springframework.context.annotation.Primary;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -73,7 +72,7 @@ public class FakeStoreProductService implements ProductService {
         product.setTitle(fakeStoreProductDto.getTitle());
         product.setPrice(fakeStoreProductDto.getPrice());
         product.setDescription(fakeStoreProductDto.getDescription());
-        product.setImageUrl(fakeStoreProductDto.getImage());
+        product.setImgUrl(fakeStoreProductDto.getImage());
 
         Category category = new Category();
         category.setTitle(fakeStoreProductDto.getCategory());
@@ -90,7 +89,7 @@ public class FakeStoreProductService implements ProductService {
         fakeStoreProductDto.setTitle(product.getTitle());
         fakeStoreProductDto.setPrice(product.getPrice());
         fakeStoreProductDto.setDescription(product.getDescription());
-        fakeStoreProductDto.setImage(product.getImageUrl());
+        fakeStoreProductDto.setImage(product.getImgUrl());
         fakeStoreProductDto.setCategory(product.getCategory().getTitle());
         return fakeStoreProductDto;
     }

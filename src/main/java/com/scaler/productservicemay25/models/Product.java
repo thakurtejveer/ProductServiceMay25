@@ -1,8 +1,6 @@
 package com.scaler.productservicemay25.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,7 +16,7 @@ public class Product extends BaseModel{
     private String title;
     private Double price;
     private String description;
-    private String imageUrl;
+    private String imgUrl;
     @ManyToOne
     private Category category;
 }
