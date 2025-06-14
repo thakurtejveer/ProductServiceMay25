@@ -19,17 +19,20 @@ public class ProductController {
 
     private ProductService productService;
 
-    public ProductController(@Qualifier("selfProductService") ProductService productService) {
+    public ProductController(ProductService productService) {
         this.productService = productService;
     }
 
     // localhost:8080/products/1
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getSingleProduct(@PathVariable("id") Long productId) throws ProductNotFoundException {
-        ResponseEntity<Product> responseEntity = new ResponseEntity<>(
-                productService.getSingleProduct(productId),
-                HttpStatus.OK
-        );
+    public Product getSingleProduct(@PathVariable("id") Long productId) throws ProductNotFoundException {
+        return productService.getSingleProduct(productId);
+
+        //        ResponseEntity<Product> responseEntity = new ResponseEntity<>(
+//                productService.getSingleProduct(productId),
+//                HttpStatus.OK
+//        );
+
         // should be implemented in service layer, make call to service layer
 //        return productService.getSingleProduct(productId);
 //        ResponseEntity<Product> responseEntity = null;
@@ -41,7 +44,7 @@ public class ProductController {
 //            e.printStackTrace();
 //            responseEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 //        }
-        return responseEntity;
+//        return responseEntity;
     }
 
 
